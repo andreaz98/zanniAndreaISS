@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>ISS Project | Cautious Explorer</title></head>
+    
+<body>
+<div id="top">
+<h1>LAB ISS | Cautious Explorer<font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+ This case-study starts to deal with the design and development of proactive/reactive software systems that use aynchronous exchange of information.
+ 
+<h2>Requirements</h2>
+
+ 
+<div class="remark">
+Design and build a software system that allow the robot described in <a href=https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html>VirtualRobot2021.html</a> to exibit the following behaviour:
+	<ul>
+		<li>the robot lives in a closed environment, delimited by walls that includes one or more devices (e.g. sonar) able to detect its presence;</li>
+		<li>the robot has a den for refuge, located near a wall;</li>
+		<li>the robot works as an explorer of the environment. Starting from its den, the robot moves (either randomly or - preferably - in a more organized way) with the aim to find the fixed obstacles around the den. The presence of mobile obstacles is (at the moment) excluded;</li>
+		<li>since the robot is 'cautious', it returns immediately to the den as soon as it finds an obstacle. Optionally, it should also return to the den when a sonar detects its presence;</li>
+		<li>the robot should remember the position of the obstacles found, by creating a sort of 'mental map' of the environment.</li>
+	</ul>
+</div>
+
+ 
+
+<h2>Requirement analysis</h2>
+<div class="remark">
+	<ul>
+		<li><b>robot</b>: a device able to execute move commands sent over the network, as described in the document <a href=https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html>VirtualRobot2021.html</a> provided by the customer;</li>
+		<li><b>lives</b>: the robot is placed in a closed environment, such environment is delimited by 4 walls. It can move everywhere inside the environment.</li>
+		<li><b>walls</b>: the perimeter/boundary of the room.</li>
+		<li><b>devices</b>: something in the walls that detect the presence of the robot.</li>
+		<li><b>around</b>:
+		<li><b>den</b>: the Home cell of the robot i.e., the cell where the robot will start to move. Such cell must be near a wall.</li>
+		<li><b>obstacle</b>: an obstacle placed inside the environment. There will be more obstacles inside the environment.</li>
+		<li><b>"mental map"</b>: the robot must save somehow and somewhere the information about the position of the obstacles in the map.</li>
+	</ul>
+</div>
+</div>
+<h3>Verifying expected results (Test Plans)</h3>
+We must be able to verify that the robot explores the map and finds obstacles and memorizes them somehow and somewhere. Each time it finds an obstacle the return to the den is mandatory.
+<h2>Problem analysis</h2>
+<div class="remark">
+We highlight that:
+	<ol>
+		<li>In the <a href=https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html>VirtualRobot2021.html</a>: commands the customer states that the robot can receive move commands in two different ways:
+			<ul>
+				<li>by sending messages to the port 8090 using HTTP POST</li>
+				<li>by sending messages to the port 8091 using a websocket</li>
+			</ul>
+		<li>With respect to the technological level, there are many libraries in many programming languages that support the required protcols.</li>
+	</ol>
+	<br/>
+However, the problem does introduce an abstraction gap at the conceptual level, since the required logical interaction is always a request-response, regardless of the technology used to implement the interaction with the robot. (Optionally) The robot must return to the den each time a sonar detects its presence, this logical operation is an event.<br/>
+A first prototype can be done in two working days (at most).
+</div>
+<h3>Logical architecture</h3>
+
+We nust design and build a distributed system with two software macro-components:
+<ol>
+	<li>the VirtualRobot, given by the customer</li>
+	<li>our cautiousExplorer application that interacts with the robot with a request-response pattern. It also receives events of detection of the robot</li>
+</ol>
+<img src=https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.wenvusage/userDocs/img/iss0_logicArch0.png width=80%></img><br/>
+A first scheme of the logical architecture of the systems can be defined as 
+shown in the figure (for the meaning of the symbols, 
+see the <a href=https://htmlpreview.github.io/?https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.wenvusage/userDocs/iss0.html>legenda</a>).
+<br/>
+Since the requirements are also about the WEnv that generates an event when a device in the environment detects the robot, the protocol that best fit for this case is websocket -- the server can dispatch messages to the client without waiting for the client to send a request.
+
+<h2>Test plans</h2> 
+
+
+<h2>Project</h2> 
+ 
+</div>
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+
+ 
+<h2>Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By Andrea Zanni email: andrea.zanni8@studio.unibo.it  
+<img src="../mestesso.jpg" alt="myself" width="15%" height="15%">
+</div> 
+</body>
+</html>
