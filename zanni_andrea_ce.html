@@ -214,7 +214,6 @@ Design and build a software system that allow the robot described in <a href=htt
 	</ul>
 </div>
 
- 
 
 <h2>Requirement analysis</h2>
 <div class="remark">
@@ -223,7 +222,6 @@ Design and build a software system that allow the robot described in <a href=htt
 		<li><b>lives</b>: the robot is placed in a closed environment, such environment is delimited by 4 walls. It can move everywhere inside the environment.</li>
 		<li><b>walls</b>: the perimeter/boundary of the room.</li>
 		<li><b>devices</b>: something in the walls that detect the presence of the robot.</li>
-		<li><b>around</b>:
 		<li><b>den</b>: the Home cell of the robot i.e., the cell where the robot will start to move. Such cell must be near a wall.</li>
 		<li><b>obstacle</b>: an obstacle placed inside the environment. There will be more obstacles inside the environment.</li>
 		<li><b>"mental map"</b>: the robot must save somehow and somewhere the information about the position of the obstacles in the map.</li>
@@ -231,7 +229,17 @@ Design and build a software system that allow the robot described in <a href=htt
 </div>
 </div>
 <h3>Verifying expected results (Test Plans)</h3>
-We must be able to verify that the robot explores the map and finds obstacles and memorizes them somehow and somewhere. Each time it finds an obstacle the return to the den is mandatory.
+We must be able to verify that the robot explores the map and finds an 
+obstacle and memorizes them somehow and somewhere. Each time it finds an 
+obstacle the return to the den is mandatory. The wall hit is recognized as
+obstacle hit hence after a wall hit the robot must return to the den.
+In order to check these 
+features we could memorize a list of string, one listitem for each obstacle
+ found and where we memorize the moves done to reach the obstacle:
+<pre>
+Test Test
+</pre>
+
 <h2>Problem analysis</h2>
 <div class="remark">
 We highlight that:
@@ -247,6 +255,10 @@ We highlight that:
 However, the problem does introduce an abstraction gap at the conceptual level, since the required logical interaction is always a request-response, regardless of the technology used to implement the interaction with the robot. (Optionally) The robot must return to the den each time a sonar detects its presence, this logical operation is an event.<br/>
 A first prototype can be done in two working days (at most).
 </div>
+<br/>
+Si possono far vedere anche più strade e evidenziare il modo migliore
+
+
 <h3>Logical architecture</h3>
 
 We nust design and build a distributed system with two software macro-components:
@@ -254,18 +266,20 @@ We nust design and build a distributed system with two software macro-components
 	<li>the VirtualRobot, given by the customer</li>
 	<li>our cautiousExplorer application that interacts with the robot with a request-response pattern. It also receives events of detection of the robot</li>
 </ol>
-<img src=https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.wenvusage/userDocs/img/iss0_logicArch0.png width=80%></img><br/>
-A first scheme of the logical architecture of the systems can be defined as 
-shown in the figure (for the meaning of the symbols, 
-see the <a href=https://htmlpreview.github.io/?https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.wenvusage/userDocs/iss0.html>legenda</a>).
 <br/>
-Since the requirements are also about the WEnv that generates an event when a device in the environment detects the robot, the protocol that best fit for this case is websocket -- the server can dispatch messages to the client without waiting for the client to send a request.
+Since the requirements are also about the WEnv that generates an event 
+when a device in the environment detects the robot, the protocol that best 
+fit for this case is websocket -- the server can dispatch messages to the 
+client without waiting for the client to send a request. Moreover, the websocket protocol
+is lighter and more flexible than the http protocol.
 
 <h2>Test plans</h2> 
 
 
 <h2>Project</h2> 
  
+ Scrivere che magari alcune parti sono già state sviluppate in boundarywalk e quindi che questi componenti verranno riutilizzati da noi. Raffinamento di una problematica o di una tematica che nasceva dai requisiti.
+ Zoom dentro ciascun componente per fare vedere la architettura di progetto.
 </div>
 
 <h2>Testing</h2> 
@@ -291,7 +305,7 @@ Since the requirements are also about the WEnv that generates an event when a de
 
 <div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
 By Andrea Zanni email: andrea.zanni8@studio.unibo.it  
-<img src="../mestesso.jpg" alt="myself" width="15%" height="15%">
+<img src="./mestesso.jpg" alt="myself" width="15%" height="15%">
 </div> 
 </body>
 </html>

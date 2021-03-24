@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>resumableBoundaryWalker</title></head>
+    
+<body>
+<div id="top">
+<h1>Lab ISS | the project resumableBoundaryWalker<font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+This case-study starts to deal with the design and development of proactive/reactive software systems which work under user-control.
+ 
+<h2>Requirements</h2>
+
+ 
+
+ 
+Design and build a software system (named from now on 'the application') that leads the robot described in 
+<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> 
+to walk along the boundary of a empty, rectangular room under user control. 
+<br/>
+More specifically, the <ks>user story</ks> can be summarized as follows:
+<br/>
+<table style="width:98%">
+<tbody>	
+
+<tr>
+<td style="width:65%" >
+the robot is initially located at the <ks>HOME</ks> position (i.e., top-left corner).
+</td>
+</tr>
+
+<tr>
+<td style="width:65%" >
+ the application presents to the user a <ks>consoleGui</ks> (i.e., GUI with 2 buttons: STOP and RESUME).
+</td></tr>
+
+
+
+<tr>
+<td style="width:65%" >
+when the user hits the button <k>RESUME</k> the robot <ks>starts or continue to walk</ks> along the boundary, while
+updating a <ks>robot-moves history</ks>;
+</td>
+
+</tr>
+
+<tr>
+<td style="width:65%" >
+when the user hits the button <k>STOP</k> the robot stops its journey, waiting for another <k>RESUME</k> ;
+</td>
+</tr>
+
+<tr>
+<td style="width:65%" >
+when the robot reachs its <ks>HOME</ks> again, the application <i>shows the robot-moves history</i> on the standard output device.
+</td>
+
+</tr>
+
+
+ </tbody>
+</table>
+
+
+<h2>Requirement analysis</h2>
+<ul>
+<li>for room: a conventional (rectangular) room of an house;</li>
+<li>for boundary: the perimeter of the room, that is physically delimited by solid walls;</lI>
+<li>for robot: a device able to execute move commands sent over the network, as described in the document VirtualRobot2021.html provided by the customer;</li>
+<li>for walk: the robot moves forward, close to the room walls;</li>
+<li>for robot-moves history: the application driving the robot must memorize somewhere the moves of the robot in order to print them when needed.</lI>
+</ul>
+</div>
+
+<h2>Problem analysis</h2>
+We highlight that:
+<ul>
+<li>In the VirtualRobot2021.html: commands the customer states that the robot can receive move commands in two different ways:</li><ul>
+<li>by sending messages to the port 8090 using HTTP POST</li>
+<li>by sending messages to the port 8091 using a websocket</lI>
+</ul>
+</ul>
+<h3>Logical architecture</h3>
+<div class="remark">
+	<ul>
+		
+		We nust design and build a distributed system with two software macro-components:
+		<li>the VirtualRobot, given by the customer</li>
+		<li>our boundaryWalk application that interacts with the robot</li>
+	</ul>
+	<img src="./logical_arch_pa.png" width=70% height=70%></img><br/>
+		We must observe that the requirements imply a reactive behaviour from the robot. The general commands sent to the robot can be sent 
+		through the usual <b>Fire and forget</b> pattern. The information created by the user
+		clicking on STOP/RESUME is an <b>event</b>.<br/>
+		The WebSocket protocol is the bast candidate for handling this fire and forget communication pattern.
+		Also, it is lighter than the HTTP protocol.
+</div>
+<br/>
+The designer(s) should design an handler(s) component to handle the reactive behaviour
+that the robot must exhibit accordingly to requirements.<br/><br/>
+We observe that:
+<ul>
+	<li>The specification of the exact 'nature' of our boundaryWalk software is left to the designer. However, we can say here that is it not a database, or a function or an object.</li>
+	<li>To make our boundaryWalk software as much as possibile independent from the undelying communication protocols, the designer could make reference to proper design pattern, e.g. Adapter, Bridge, Facade.</li>
+</ul>
+<br/>
+With respect to the technological level, there are many libraries in many programming languages that support the required protcols.
+
+The following resources could be usefully exploited to reduce the development time of a first prototype of the application:
+
+<ol>
+<li>The  <a href="./it.unibo.virtualrobotclient/app/src/main/java/it/unibo/consolegui/Consolegui.java" target="code">Consolegui.java</a>  
+(in project <a href="./it.unibo.virtualrobotclient/app/src/main/java/it/unibo/consolegui" target="code">it.unibo.virtualrobotclient</a>) </li>
+
+<li>The  <a href="./it.unibo.virtualrobotclient/app/src/main/java/it/unibo/wenv/RobotMovesInfo.java" target="code">RobotMovesInfo.java</a>  
+(in project <a href="./it.unibo.virtualrobotclient/app/src/main/java/it/unibo/wenv" target="code">it.unibo.virtualrobotclient</a>) </li>
+
+
+<li>The  <a href="./it.unibo.virtualrobotclient/app/src/main/java/it/unibo/wenv/RobotInputController.java" target="code">RobotInputController.java</a>  
+(in project <a href="./it.unibo.virtualrobotclient/app/src/main/java/it/unibo/wenv" target="code">it.unibo.virtualrobotclient</a>) </li>
+<li>The <a href="https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.virtualrobotclient/app/src/main/kotlin/mapRoomKotlin/mapUtil.kt" target=code>mapUtil.kt</a> to build and then show the map that has been discovered by the robot.
+</ol>
+
+... <tt>TODO</tt> <br/>
+<br/>individua e propone (motivandola) una lista di priorità per il soddisfacimento dei requisiti
+<br/>
+<br/>The expected time required for the development of the application is (no more than) 6 hours.
+
+<h2>Test plans</h2> 
+presenta ogni TestPlan collegandolo ad una user story e in modo 'concreto' (non come un insieme di intenti)
+<br/>propone diverse tipologie di scene/situazioni per il testing
+<br/>
+Test plan to check that the robot does correctly the "boundary walk".
+<pre>
+let us define String moves="";
+for 4 times: 
+	1) send to the robot the request to execute the command moveForward;
+	if the answer is 'true' append the symbol "w" to moves and continue to do 1); 
+	2) when the answer of the request becomes 'false',
+	send to the robot the request to execute the command turnLeft and append the
+	symbol "l" to moves
+</pre>
+Test plan for the robot to start after the RESUME button is hit.
+<pre>
+precondition: the robot is idle.
+then:
+	1. the handler receives the RESUME event
+	2. the component(s) controlling the robot do:
+		for 4 times: 
+			1) send to the robot the request to execute the command moveForward;
+			if the answer is 'true' append the symbol "w" to moves and continue to do 1); 
+			2) when the answer of the request becomes 'false',
+			send to the robot the request to execute the command turnLeft and append
+			the symbol "l" to moves
+</pre>
+
+Test plan for the robot to check that the robot stops -- after a STOP hit -- and wait the RESUME button to be hit. 
+<pre>
+precondition: the robot is moving. If the robot is idle we do nothing.
+then:
+	1. the handler receives the STOP event
+	2. the component(s) in control of the robot do:
+		1. send a halt command to the robot.
+		
+NOTE: It may happen that the robot receives a stop when, e.g., it is doing the 
+third iteration. When it resumes it must start with the beginning of the third
+iteration, hence the robot must save somewhere the iteration no. before stopping.
+		
+NOTE: if the test about the RESUME event does not fail and memorizes properly its
+status about iteration number, then we have covered all the requirements with 
+these tests.
+</pre>
+
+<h2>Project</h2> 
+
+presenta dettagli di progetto che permettono una precisa implementazione da parte di chi legge
+<br/>pone in evidenza le parti di funzionamento proattivo e quelle di funzionamento reattivo
+<br/><br/>
+<table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%">
+<h3>Nature of the application component</h3>
+The <em>boundaryWalk</em> application is a <k>conventional Java program</k>, represented in the figure as an object with internal threads.
+<br>
+</td>
+<td>  
+<center><h3>Project Architecture</h3><img src="./project_arch.png" alt="projectArch0" width="60%"></center>
+</td>
+</tr>
+
+<tr>
+<td style="width:50%">
+<h3>A layered architecture: the basic communication layer</h3>
+<div class="remark">
+To make the 'business code' as much independent as possibile from the technological details of the interaction with the virtual robot 
+(and with any other type of robot in the future), let us structure the code according to a conventional <em>layered architecture</em>,
+which is the simplest form of software architectural pattern, where the components are organized in <i>horizontal layers</i>.
+</div>
+
+For each protocol we will introduce a proper support that implements the interface<br>
+<a href="../app/src/main/java/it/unibo/interaction/IssOperations.java" target="web"><em>IssOperations.java</em></a> 
+<pre>
+public interface IssOperations {
+    void forward( String msg ) ;
+    void request( String msg );
+    void reply( String msg );
+    String requestSynch( String msg );
+}
+</pre>
+These operations are introduced with reference to message-passing rather than to procedure-call.
+Thus, <em>forward</em> means just 'fire and forget', while
+ <em>request</em> assumes that the called entity will execute a <em>reply</em> related to that request.
+<br><br>
+<em>requestSynch</em> is introduced to facilitate the transition from procedure-call tomessage-passing.
+</td>
+<td>  
+<h3>The communication layers</h3>
+<center><img src="./img/issCommsLayers.png" alt="issCommsLayers" width="90%"></center>
+<br>
+The implementation of the <a href="../app/src/main/java/it/unibo/robotSupports/IssHttpSupport.java" target="web"><em>IssHttpSupport.java</em></a>
+is quite conventional, since the work is mainly done by the library <ks>org.apache.http</ks>.
+<br><br>
+The implementation of the <a href="../app/src/main/java/it/unibo/robotSupports/IssWsSupport.java" target="web"><em>IssWsSupport.java</em></a>
+is based on the library <ks>javax.websocket</ks> and requires a new 'style of programming' (that we will discuss later).
+
+
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%">
+<h3>IssCommsSupportFactory</h3>
+The <a href="../app/src/main/java/it/unibo/robotSupports/IssCommsSupportFactory.java" target="web"><em>IssCommsSupportFactory.java</em></a> provides a 
+ <a href="https://en.wikipedia.org/wiki/Factory_method_pattern" target="web">factory method</a>
+to <ks>create</ks> the proper communicartion support by using a <k>user-defined Java annotation</k> related to the object given in input.
+
+</td>
+<td>
+<h4>Using <a href="//htmlpreview.github.io/?https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.boundaryWalk/userDocs/aboutAnnotations.html" target="code">Java annotations</a></h4>
+The class
+<a href="../app/src/main/java/it/unibo/annotations/IssAnnotationUtil.java" target="web"><em>IssAnnotationUtil.java</em></a>
+provides utility methods to access the information specified in an annotation.
+
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="aril">The application component</h2>
+<div class="remark">
+Since we intend to make our 'business code' technology-independent also with respect to the robot, we introduce <ks>a layer
+that makes the robot a 'logical entity'</ks> able to 'talk' with clients in a <ks>custom high-level language</ks>, designed with reference to
+the application needs. 
+In the following,  we will name such a language as <k>aril</k> (<ks>abstract robot interaction language</ks>).
+</div>
+<h3>The abstract robot interaction language (<ks>aril</ks>)</h3>
+
+The language that we will use to talk with out 'logical robot' is defined by the  following grammar rule:
+
+<pre>ARIL ::= w | s | l | r | h
+</pre>
+
+
+Morover, if we assume here that the 'logical robot' can be included in a circle of diamater of length 
+
+
+<ks>DR</ks>
+
+,
+the meaning of the aril commands can be set as follows:
+<pre><ks>w</ks> : means 'go forward',  so to cover a length equals to <ks>DR</ks>
+<ks>s</ks> : means 'go backward', so to cover a length equals to <ks>DR</ks>
+<ks>h</ks> : means 'stop moving'
+<ks>l</ks> : means 'turn left of 90'
+<ks>r</ks> : means 'turn right of 90'
+</pre>
+
+<h3>From cril to aril</h3>
+<td style="width:50%">
+
+
+
+The class <a href="../app/src/main/java/it/unibo/robotSupports/IssArilRobotSupport.java" target="web"><em>IssArilRobotSupport</em></a> 
+is introduced as a component that translates <k>aril</k> commands into  <k>cril</k> commands, thus working as an 
+<a href="https://en.wikipedia.org/wiki/Adapter_pattern" target="web">adapter</a>.
+<br><br>
+<center><img src="./cril2aril.png" alt="UseRobotAril" width="60%" height="60%"></center>
+<br>
+The move-time of aril-commands is set by using the user-defined Java annotation: 
+<a href="../app/src/main/java/it/unibo/annotations/RobotMoveTimeSpec.java" target="web"><em>RobotMoveTimeSpec</em></a> 
+<pre> 
+<k>@Target(value = { ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE   })
+@Retention(RetentionPolicy.RUNTIME)</k>
+public <k>@interface</k> <ks>RobotMoveTimeSpec</ks> {
+    int ltime()  default 300;
+    int rtime()  default 300;
+    int wtime()  default 600;
+    int stime()  default 600;
+    int htime()  default 100;
+    String configFile() default "IssRobotConfig.txt";
+}
+</pre>
+The move-time can be also specified by means of  a  file that includes sentences (in Prolog syntax) of the form:
+<pre>spec( htime( 100 ),  ltime( 500 ), rtime( 500 ),  wtime( 600 ), wstime( 600 ) ).
+</pre>
+</td>
+
+<div class="remark">
+The usage of a websocket library <ks>breaks</ks> the unique flow of control of the application into several threads.<br>
+In order to exploit in a structured way the asynchronicity of the interaction, the reference design pattern
+is the <a href="https://en.wikipedia.org/wiki/Observer_pattern" target="web"><k>Observer pattern</k></a>.
+</div>
+
+
+To facilitate the work of the application designer, we will introduce new resources, including the idea of a <i>support
+for (high-level) communications that provides operation to add/remove observers</i>, by implementing
+a proper interface.
+
+<h4>The <a href="../app/src/main/java/it/unibo/interaction/IssObserver.java" target="code"><ks>IssObserver</ks></a> interface</h4>
+At the moment, this interface defines a method <tt>handleInfo</tt> that accepts two types of arguments
+<pre>public interface IssObserver {
+    public void handleInfo(String info);
+    public void handleInfo(JSONObject info);
+}
+</pre>
+
+Our <k>observable supports</k> must implement an interface that adds new operations to our high-level communication interface:
+<h3>The <a href="../app/src/main/java/it/unibo/supports/IssCommSupport.java" target="code"><ks>IssCommSupport</ks></a> interface</h3>
+<pre>public interface <ks>IssCommSupport</ks> <k>extends <a href="../app/src/main/java/it/unibo/interaction/IssOperations.java" target="code"><ks>IssOperations</ks></a></k> {
+    void registerObserver( IssObserver obs );
+    void removeObserver( IssObserver obs );
+    void close();
+}
+</pre>
+
+<h3>Zooming into the application</h3>
+<div class="remark" id="asynchbwjava2">
+<m>Class annotated with <a href="../app/src/main/java/it/unibo/annotations/ArilRobotSpec.java" target="code">ArilRobotSpec</a>,
+</m>
+<br>
+<k>Key point</k>: <tt>Proactive and Reactive behaviour</tt> and  
+<a href="https://stackify.com/solid-design-principles/" target="web"><k>Single Responsibility Principle</k></a>.
+<br><br><m>
+<ul>
+<li>The business logic is defined in an object of class 
+<a href="../app/src/main/java/it/unibo/wenv/RobotBoundaryLogic.java" target="code"><ks>RobotBoundaryLogic</ks></a>
+that is called by the observer
+<a href="../app/src/main/java/it/unibo/wenv/RobotInputController.java" target="code"><ks>RobotInputController</ks></a>
+initialized to use the <ks>aril</ks> command-move language. </li>
+ 
+<li>
+In this way, we have further removed any detail related to the interaction with WEnv
+from the <a href="../app/src/main/java/it/unibo/wenv/RobotBoundaryLogic.java" target="code"><ks>RobotBoundaryLogic</ks></a>. 
+</li>
+<li>
+Moreover, the details related to the construction of the robot-moves history are embedded in
+the class <a href="../app/src/main/java/it/unibo/wenv/RobotMovesInfo.java" target="code"><ks>RobotMovesInfo</ks></a>..
+</li>
+</ul>
+</m></div>
+
+<h4>Zoomimg into the application </h4><hr>
+ <center><img src="./img/RobotBoundaryArilZooming.png" alt="RobotBoundaryArilZooming" width="100%"></center>
+<m>
+ <hr>
+Requires 4 Threads, because of the <a href="../app/src/main/java/it/unibo/supports/IssWsSupport.java" target="code">IssWsSupport</a>. 
+</m><br/><br/>
+
+Since we have to stop/resume the robot when it receives the STOP/RESUME command by the user 
+via the GUI, we use the class Consolegui. This imply that our RobotInputController 
+becomes a reactive (to the command received by the GUI) component.
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+The deployment consists in the commit of the application on a project named <ks>iss2021_resumablebw</ks> of the MY GIT repository ( <k>RRR</k> ).
+<br/><br/>
+The final commit commit has done after <k>XXX</k> hours of work.
+ 
+<h2>Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+ QUESTIONS:
+chiarisce cosa il committente intende con 'Optionally'  
+chiarisce cosa il committente intende con 'should remember' 
+chiarisce cosa il committente intende con 'mental map'
+definisce la user story in modo da comprendere TUTTI i requisiti (anche opzionali)
+discute se sia meglio avvalersi di HTTP o delle websocket e perchè OK
+discute se sia meglio usare il linguaggio di comando cril, aril (o altro) e perchè
+discute se sia meglio muovere il robot in modo random o in modo organizzato 
+discute se il ritorno alla den debba/possa avvenire senza ricalcare il percorso effettuato
+presenta ogni TestPlan collegandolo ad una user story e in modo 'concreto' (non come un insieme di intenti)
+propone diverse tipologie di scene/situazioni per il testing
+individua e propone (motivandola) una lista di priorità per il soddisfacimento dei requisiti 
+presenta una stima dei tempi di realizzazione OK
+presenta un elenco delle risorse che sarebbe opportuno avere e/o procurarsi
+presenta una architettura di progetto
+presenta dettagli di progetto che permettono una precisa implementazione da parte di chi legge
+pone in evidenza le parti di funzionamento proattivo e quelle di funzionamento reattivo
+ECCEDE nelle dimensioni del file (al momento > 1600Kb)
+
+
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); color:white">
+By Andrea Zanni email: andrea.zanni8@studio.unibo.it  
+<img src="./mestesso.jpg" alt="teacher" width="10%" height="10%">
+</div> 
+</body>
+</html>
