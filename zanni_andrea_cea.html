@@ -298,7 +298,8 @@ Si possono far vedere anche più strade e evidenziare il modo migliore
 We nust design and build a distributed system with two software macro-components:
 <ol>
 	<li>the VirtualRobot, given by the customer</li>
-	<li>our cautiousExplorer application that interacts with the robot with a request-response pattern. It also receives events of detection of the robot</li>
+	<li>our cautiousExplorer application that interacts with the robot with a communication pattern.
+	It also receives events of detection of the robot</li>
 </ol>
 <br/>
 <img src=file:///C:/Users/andre/OneDrive/Desktop/Uni/ISS-M/zanni_iss2021/logical_arch_pa.png width=80%></img>
@@ -420,7 +421,7 @@ The usage of a websocket library <ks>breaks</ks> the unique flow of control of t
 In order to exploit in a structured way the asynchronicity of the interaction, the reference design pattern
 is the <a href="https://en.wikipedia.org/wiki/Observer_pattern" target="web"><k>Observer pattern</k></a>. Moreover,
 in order to have everything fully asynchronous we can use the 
-message-driven model (or actor model) for our application. Such 
+message-driven model (or actor model) for our application. 
 </div>
 
 
