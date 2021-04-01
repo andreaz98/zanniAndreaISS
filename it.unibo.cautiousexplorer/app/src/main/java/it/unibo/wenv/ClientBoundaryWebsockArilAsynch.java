@@ -10,7 +10,6 @@ that is 'message-driven'
 */
 package it.unibo.wenv;
 import it.unibo.annotations.ArilRobotSpec;
-import it.unibo.consolegui.ConsoleGui;
 import it.unibo.interaction.IssOperations;
 import it.unibo.supports.IssCommSupport;
 import it.unibo.supports.RobotApplicationStarter;
