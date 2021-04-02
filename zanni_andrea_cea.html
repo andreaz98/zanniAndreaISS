@@ -309,6 +309,12 @@ when a device in the environment detects the robot, the protocol that best
 fit for this case is websocket -- the server can dispatch messages to the 
 client without waiting for the client to send a request. Moreover, the websocket protocol
 is lighter and more flexible than the http protocol.
+<br/>
+The map can be subdivided into cells and can be mapped onto a cyclic graph. Hence,
+the designer might want to apply a DFS or BFS algorithm to explore the map (i.e.,the graph).
+<br/>
+<img src=C:\Users\andre\OneDrive\Desktop\Uni\ISS-M\zanni_iss2021\it.unibo.cautiousexplorer\userDocs\concept-dfs.png width=80% height=80%></img>
+
 
 <h2>Test plans</h2> 
 
@@ -447,6 +453,15 @@ Our <k>observable supports</k> must implement an interface that adds new operati
 </pre>
 
 <h3>Zooming into the application</h3>
+RobotHandler: manages the input handling from the support and from the RobotLogic. It orchestrates
+the interaction between the two.
+<br/>
+RobotLogic: wraps the logic of the robot such as DFS. It is an abstract actor 
+for DIPrinciple and OCPrinciple's sake.
+<br/>
+<img src=C:\Users\andre\OneDrive\Desktop\Uni\ISS-M\zanni_iss2021\it.unibo.cautiousexplorer\userDocs\project.png width=80%></img>
+<br/>
+
 </div>
 
 <h2>Testing</h2> 
